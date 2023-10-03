@@ -12,6 +12,9 @@ public class AppDbContext : DbContext
         optionsBuilder.UseInMemoryDatabase("AppDatabase");
     }
 
+    /// <summary>
+    /// Este método faz a criação de dados do banco em memória
+    /// </summary>
     public void Seed()
     {
         Pessoas.RemoveRange(Pessoas);
