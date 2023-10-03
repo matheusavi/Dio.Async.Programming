@@ -4,11 +4,11 @@ internal class FazendoRequestHttp
 {
     private const string _requestUri = "http://localhost:5223/api/controllersimples";
 
-    public static async Task GetRequest()
+    public static async Task<string> GetRequest()
     {
         using var httpClient = new HttpClient();
         var respostaHttp = await httpClient.GetAsync(_requestUri);
-        var resultado = await respostaHttp.Content.ReadAsStringAsync();
+        return await respostaHttp.Content.ReadAsStringAsync();
     }
 
     public static async Task GetRequestSequential()

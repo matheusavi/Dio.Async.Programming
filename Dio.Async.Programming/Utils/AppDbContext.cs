@@ -14,6 +14,8 @@ public class AppDbContext : DbContext
 
     public void Seed()
     {
+        Pessoas.RemoveRange(Pessoas);
+        SaveChanges();
         var fixture = new Fixture();
         var pessoas = fixture.CreateMany<Pessoa>(5);
         Pessoas.AddRange(pessoas);

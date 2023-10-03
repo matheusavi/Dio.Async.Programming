@@ -14,6 +14,7 @@ do
     Console.WriteLine("6 - Ler do banco de dados (assíncrono)");
     Console.WriteLine("7 - Fazer request HTTP");
     Console.WriteLine("8 - Comparando requests em sequencial e paralelo");
+    Console.WriteLine("9 - Thread unsafe");
     Console.WriteLine("0 - Sair");
     Console.Write("Opção: ");
 
@@ -50,7 +51,8 @@ do
             break;
 
         case "7":
-            await FazendoRequestHttp.GetRequest();
+            var retorno = await FazendoRequestHttp.GetRequest();
+            Console.WriteLine(retorno); 
             break;
 
         case "8":
@@ -65,6 +67,10 @@ do
             await FazendoRequestHttp.GetRequestParallel();
             stopwatch.Stop();
             Console.WriteLine($"Requests em paralelo levaram {stopwatch.ElapsedMilliseconds} ms");
+            break;
+
+        case "9":
+            ThreadSafe.ThreadUnsafe();
             break;
 
         case "0":

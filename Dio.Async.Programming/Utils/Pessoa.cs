@@ -6,6 +6,14 @@ public class Pessoa
     public string Nome { get; set; } = string.Empty;
     public int Idade { get; set; }
 
+    public void IncrementarIdade()
+    {
+        lock (this)
+        {
+            Idade++;
+        }
+    }
+
     public override string ToString()
     {
         return $"Id: {Id}, Nome: {Nome}, Idade: {Idade}";
