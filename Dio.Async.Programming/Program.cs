@@ -1,32 +1,79 @@
 ﻿using Dio.Async.Programming;
 using System.Diagnostics;
 
-//Lendo arquivos
-LendoDeArquivos.LerArquivo();
+string opcao;
 
-await LendoDeArquivos.LerArquivoAsync();
+do
+{
+    Console.WriteLine("Escolha uma opção:");
+    Console.WriteLine("1 - Fazer comida (síncrono)");
+    Console.WriteLine("2 - Fazer comida (assíncrono)");
+    Console.WriteLine("3 - Ler arquivo (síncrono)");
+    Console.WriteLine("4 - Ler arquivo (assíncrono)");
+    Console.WriteLine("5 - Ler do banco de dados (síncrono)");
+    Console.WriteLine("6 - Ler do banco de dados (assíncrono)");
+    Console.WriteLine("7 - Fazer request HTTP");
+    Console.WriteLine("8 - Comparando requests em sequencial e paralelo");
+    Console.WriteLine("0 - Sair");
+    Console.Write("Opção: ");
 
-//Utilizando com banco de dados
-var interagindoComBanco = new InteragindoComBanco();
-interagindoComBanco.LerDoBanco();
-await interagindoComBanco.LerDoBancoAsync();
+    opcao = Console.ReadLine();
 
+    switch (opcao)
+    {
+        case "1":
+            var cozinha = new Cozinha();
+            cozinha.FazerComida();
+            break;
 
-//Fazendo request http
-await FazendoRequestHttp.GetRequest();
+        case "2":
+            var cozinhaAsync = new Cozinha();
+            await cozinhaAsync.FazerComidaAsync();
+            break;
 
-//Porque usar async?
-var stopwatch = new Stopwatch();
+        case "3":
+            LendoDeArquivos.LerArquivo();
+            break;
 
-stopwatch.Start();
+        case "4":
+            await LendoDeArquivos.LerArquivoAsync();
+            break;
 
-await FazendoRequestHttp.GetRequestSequential();
+        case "5":
+            var interagindoComBanco = new InteragindoComBanco();
+            interagindoComBanco.LerDoBanco();
+            break;
 
-stopwatch.Stop();
-Console.WriteLine($"Requests em sequencia levaram {stopwatch.ElapsedMilliseconds} ms");
+        case "6":
+            var interagindoComBancoAsync = new InteragindoComBanco();
+            await interagindoComBancoAsync.LerDoBancoAsync();
+            break;
 
-stopwatch.Restart();
-await FazendoRequestHttp.GetRequestParallel();
-stopwatch.Stop();
-Console.WriteLine($"Requests em paralelo levaram {stopwatch.ElapsedMilliseconds} ms");
+        case "7":
+            await FazendoRequestHttp.GetRequest();
+            break;
 
+        case "8":
+            var stopwatch = new Stopwatch();
+
+            stopwatch.Start();
+            await FazendoRequestHttp.GetRequestSequential();
+            stopwatch.Stop();
+            Console.WriteLine($"Requests em sequência levaram {stopwatch.ElapsedMilliseconds} ms");
+
+            stopwatch.Restart();
+            await FazendoRequestHttp.GetRequestParallel();
+            stopwatch.Stop();
+            Console.WriteLine($"Requests em paralelo levaram {stopwatch.ElapsedMilliseconds} ms");
+            break;
+
+        case "0":
+            break;
+
+        default:
+            Console.WriteLine("Opção inválida.");
+            break;
+    }
+
+    Console.WriteLine();
+} while (opcao != "0");

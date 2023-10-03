@@ -2,10 +2,12 @@
 
 internal class FazendoRequestHttp
 {
+    private const string _requestUri = "http://localhost:5223/api/controllersimples";
+
     public static async Task GetRequest()
     {
         using var httpClient = new HttpClient();
-        var respostaHttp = await httpClient.GetAsync("http://localhost:5223/api/controllersimples");
+        var respostaHttp = await httpClient.GetAsync(_requestUri);
         var resultado = await respostaHttp.Content.ReadAsStringAsync();
     }
 
@@ -14,7 +16,7 @@ internal class FazendoRequestHttp
         using var httpClient = new HttpClient();
         for (var i = 0; i < 5; i++)
         {
-            var respostaHttp = await httpClient.GetAsync("http://localhost:5223/api/controllersimples");
+            var respostaHttp = await httpClient.GetAsync(_requestUri);
             var resultado = await respostaHttp.Content.ReadAsStringAsync();
         }
     }
@@ -25,7 +27,7 @@ internal class FazendoRequestHttp
         var tasks = new List<Task>();
         for (var i = 0; i < 5; i++)
         {
-            tasks.Add(httpClient.GetAsync("http://localhost:5223/api/controllersimples"));
+            tasks.Add(httpClient.GetAsync(_requestUri));
         }
 
         await Task.WhenAll(tasks);
