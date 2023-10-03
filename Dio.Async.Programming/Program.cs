@@ -15,6 +15,7 @@ do
     Console.WriteLine("7 - Fazer request HTTP");
     Console.WriteLine("8 - Comparando requests em sequencial e paralelo");
     Console.WriteLine("9 - Thread unsafe");
+    Console.WriteLine("10 - Cancelando uma operação assíncrona");
     Console.WriteLine("0 - Sair");
     Console.Write("Opção: ");
 
@@ -71,6 +72,10 @@ do
 
         case "9":
             ThreadSafe.ThreadUnsafe();
+            break;
+
+        case "10":
+            await CancellationTokenExemplos.ExecutarCancellationToken();
             break;
 
         case "0":
