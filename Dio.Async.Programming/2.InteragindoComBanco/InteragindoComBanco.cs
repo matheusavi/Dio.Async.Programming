@@ -23,7 +23,6 @@ public class InteragindoComBanco
 
     public async Task LerDoBancoAsync()
     {
-        using var db = new AppDbContext();
         var pessoas = await _appDbContext.Pessoas.ToListAsync();
         foreach (var item in pessoas)
         {
